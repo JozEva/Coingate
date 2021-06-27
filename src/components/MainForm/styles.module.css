@@ -1,0 +1,134 @@
+.container {
+  margin: 13rem 8rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Left side section container */
+.title {
+  width: 500px;
+  color: #fff;
+  font-size: 2.8rem;
+  font-weight: 500;
+  line-height: 1em;
+}
+
+.title span:nth-child(odd) {
+  color: #16dfb5;
+}
+
+.text p {
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 400;
+  margin-top: 1.3rem;
+  line-height: initial;
+}
+
+.button {
+  text-transform: none!important;
+  color: #16dfb5!important;
+}
+
+.minWidth {
+  display: none;
+}
+
+/* ----------------------------------- */
+
+/* Calculator form section container */
+.secondSection {
+  margin-right: 5rem;
+  position: relative;
+}
+
+.formBackground {
+  height: 480px;
+  position: absolute;
+  background: #e9f6ff;
+  width: 350px;
+  top: -20px;
+  right: -40px;
+  border-radius: 20px;
+  transform: rotate( -6deg);
+  overflow: hidden;
+  z-index: -200;
+  transition: ease all .5s;
+
+}
+
+.cryptoForm {
+  position: absolute;
+  top: 20px;
+  right: -90px;
+  height: calc(480px - 2rem);
+  padding: 1rem;
+  background: #ffffff;
+  width: calc(350px - 2rem);
+  border-radius: 20px;
+  transition: ease all .5s;
+
+}
+
+.cryptoForm fieldset {
+  border-radius: 50px;
+}
+
+/* ----------------------------------- */
+
+@media screen and (max-width: 1180px) {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .title {
+    width: auto;
+    margin: auto;
+  }
+  .formBackground {
+    display: none;
+  }
+  .cryptoForm {
+    position: unset;
+    margin: 1rem auto 3rem auto;
+    height: calc(480px - 2rem);
+    width: 400px;
+    background: #ffffff;
+    transition: ease all .5s;
+  }
+  .maxWidth {
+    display: none;
+  }
+  .minWidth {
+    display: block;
+  }
+  .minWidthButton {
+    text-transform: none;
+    color: #16dfb5;
+  }
+
+  .secondSection {
+    margin: 0 1rem;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .container {
+    margin: 8rem 1rem 0 1rem;
+  }
+  .cryptoForm {
+    position: unset;
+    height: calc(480px - 2rem);
+    margin: 1rem auto;
+    width: 300px;
+    background: #ffffff;
+    display: flex;
+    transition: ease all .5s;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .cryptoForm {
+    width: auto;
+  }
+}

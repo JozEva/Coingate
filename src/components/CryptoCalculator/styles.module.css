@@ -1,0 +1,73 @@
+.margin {
+  margin-top: 3.7rem;
+}
+
+.selector {
+  width: 80px;
+}
+
+.innerText {
+  margin-left: 0.5rem;
+  margin-right: -0.5rem;
+  color: #494949;
+}
+
+.containerBox {
+  padding: 0px 5px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #d8d8d8;
+  margin-top: 1rem;
+}
+
+.input {
+  margin-left: 1rem;
+  flex: 1;
+  text-align: center;
+}
+
+.divider {
+  height: 20;
+  margin: 0 1rem;
+}
+
+.paymentMethod {
+  margin: 1.6rem 0;
+}
+
+.paymentSelect {
+  margin-left: 0.5rem;
+}
+
+.buttonBuy {
+  color: #fff;
+  font-size: 1em;
+  text-decoration: none;
+  padding: 15px 50px 15px 50px;
+  background-color: #16dfb5;
+  color: #fff;
+  border-radius: 4px 50px 50px 50px;
+  cursor: pointer;
+  transition: box-shadow .2s ease;
+  border: none;
+  width: 100%;
+  margin-top: 6rem;
+}
+
+.buttonBuy:hover {
+  box-shadow: 1px 1px 6px 1px #16dfb5;
+}
+
+.iconAndName {
+  display: flex;
+  align-items: center;
+}
+
+.errorMsg, .successMsg{
+  margin: 0.5rem 0;
+  position: absolute;
+  top: 0;
+  width: 285px;
+}

@@ -1,0 +1,98 @@
+.navbar {
+  height: 88px;
+}
+
+.image {
+  width: 157px;
+  padding: 25px 15px;
+}
+
+.links {
+  display: flex;
+}
+
+.linkItem {
+  padding: 12px 40px 12px 0;
+  list-style: none;
+}
+
+.link {
+  color: #7f88a0;
+  text-decoration: none;
+  font-size: 1.1em;
+}
+
+.link:hover {
+  color: #7f88c1;
+}
+
+.buttons {
+  display: flex;
+}
+
+/* Log in button style */
+.buttonLogin {
+  padding: 12px 40px 12px 0;
+  list-style: none;
+}
+
+.button {
+  color: #7f88a0;
+  font-size: 1.1em;
+  text-decoration: none;
+  transition: box-shadow .2s ease;
+}
+
+.button:hover {
+  color: #5022ed;
+}
+/* ---------------------------------- */
+
+/* Sign up button style */
+.buttonSignup {
+  color: #fff;
+  font-size: 1.1em;
+  text-decoration: none;
+  padding: 12px 50px 12px 50px;
+  background: #16dfb5;
+  color: #fff;
+  border-radius: 4px 50px 50px 50px;
+  cursor: pointer;
+  transition: box-shadow .2s ease;
+}
+
+.buttonSignup:hover {
+  box-shadow: 1px 1px 6px 1px #16dfb5;
+}
+/* ---------------------------------- */
+
+.burger {
+  display: none;
+}
+
+@media screen and (max-width: 970px) {
+  .links {
+    display: none;
+    transition: ease all .5s;
+  }
+  .burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .burger div {
+    width: 30px;
+    height: 2px;
+    background-color: #969696;
+    border-radius: 20%;
+    margin: 3px 0;
+  }
+  .burger div:nth-child(3){
+    width: 15px;
+  }
+  .buttons {
+    display: none;
+  }
+}
