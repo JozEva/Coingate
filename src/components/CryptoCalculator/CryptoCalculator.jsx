@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react';
 
 // Styles
-import styles from './styles.module.css'
+import styles from './styles.module.css';
 // Additional styles
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -15,14 +15,14 @@ import {
   InputBase,
   Divider,
   Snackbar
-} from '@material-ui/core'
+} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 // -----------------------------------------
 
 // Icons for payment methods
-import paypal from '../../images/icons/paypal.png'
-import amazon from '../../images/icons/amazon.png'
-import bank from '../../images/icons/bank.png'
+import paypal from '../../images/icons/paypal.png';
+import amazon from '../../images/icons/amazon.png';
+import bank from '../../images/icons/bank.png';
 
 // Additional styles
 const useStyles = makeStyles(() => ({
@@ -41,8 +41,8 @@ const useStyles = makeStyles(() => ({
 const CryptoCalculator = () => {
 
   // Input values to pay and buy
-  const [payValue, setPayValue] = useState('');
-  const [buyValue, setBuyValue] = useState('');
+  const [payValue, setPayValue] = useState(0);
+  const [buyValue, setBuyValue] = useState(0);
 
   // Select currency to pay with and buy what
   const [payInCurrency, setPayInCurrency] = useState('EUR');
@@ -83,32 +83,72 @@ const CryptoCalculator = () => {
     }
   }
 
+
   const [items, setItems] = useState()
-
   const API = 'https://api.coingate.com/v2/rates';
- useEffect(()=> {
-   fetch(API)
-   .then(res=>res.json())
-   .then(data => setItems(data))
-   .catch(err => console.log(err.message))
- }, [])
+  // useEffect(() => {
+  //   fetch(API)
+  //     .then(res => res.json())
+  //     .then(data => setItems(data))
+  //     .catch(err => console.log(err.message))
+  // }, [])
 
-  const currencies = useMemo(() => {
-    const fetchedData = items;
-    const currencyList = fetchedData ? Object.entries(fetchedData.merchant) : []
-    const currencies = []
-    if (!items) return []
-    for (let i = 0; i < currencyList.length; i++) {
-      currencies.push(
-        {
-          name: currencyList[i][0],
-          val: currencyList[i][1]
-        }
-        )
-      };
-      return currencies
-    }, [items])
-    
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await fetch(API);
+        const body = await result.json();
+        setItems(body);
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+    fetchData()
+  }, [])
+
+  const fetchedData = items;
+  const currencyList = fetchedData ? Object.entries(fetchedData.trader.buy) : []
+  const currencies = []
+  for (let i = 0; i < currencyList.length; i++) {
+    currencies.push(
+      {
+        name: currencyList[i][0],
+      }
+    )
+  };
+
+  const calculateByPay = () => {
+    let cryptoPrice = payValue / fetchedData.trader.buy[buyInCurrency][payInCurrency];
+    console.log('Calculate by pay: ', cryptoPrice)
+    return cryptoPrice
+  }
+
+  const calculateByBuy = () => {
+    let cryptoPrice = buyValue * fetchedData.trader.buy[buyInCurrency][payInCurrency];
+    console.log('Calculate by buy: ', cryptoPrice)
+    return cryptoPrice
+  }
+
+  const handlePayCurrency = e => {
+    setPayInCurrency(e.target.value)
+    setBuyValue(calculateByPay())
+  }
+
+  const handleBuyCurrency = e => {
+    setBuyInCurrency(e.target.value)
+    setPayValue(calculateByBuy())
+  }
+
+  const handlePay = e => {
+    setPayValue(e.target.value)
+    setBuyValue(calculateByPay())
+  }
+
+  const handleBuy = e => {
+    setBuyValue(e.target.value)
+    setPayValue(calculateByBuy())
+  }
+
 
   // Payment methods array
   const paymentMethods = [
@@ -154,7 +194,12 @@ const CryptoCalculator = () => {
       <Container className={additionalStyles.container}>
         <Box borderRadius={16} className={styles.containerBox}>
           <div className={styles.innerText}>Pay</div>
-          <InputBase className={styles.input} onChange={e => setPayValue(e.target.value)}>
+          <InputBase
+            className={styles.input}
+            onChange={handlePay}
+            value={payValue}
+            defaultValue={payValue}
+          >
             {payValue}
           </InputBase>
           <Divider className={additionalStyles.divider} orientation="vertical" />
@@ -163,7 +208,7 @@ const CryptoCalculator = () => {
             InputProps={{ disableUnderline: true }}
             select
             value={payInCurrency}
-            onChange={e => setPayInCurrency(e.target.value)}
+            onChange={handlePayCurrency}
           >
             {currencies.map((option) => (
               <MenuItem key={option.name} value={option.name}>
@@ -178,7 +223,12 @@ const CryptoCalculator = () => {
       <Container className={additionalStyles.container}>
         <Box borderRadius={16} className={styles.containerBox}>
           <div className={styles.innerText}>Buy</div>
-          <InputBase className={styles.input} onChange={e => setBuyValue(e.target.value)}>
+          <InputBase
+            className={styles.input}
+            onChange={handleBuy}
+            value={buyValue}
+            defaultValue={buyValue}
+          >
             {buyValue}
           </InputBase>
           <Divider className={additionalStyles.divider} orientation="vertical" />
@@ -187,8 +237,7 @@ const CryptoCalculator = () => {
             InputProps={{ disableUnderline: true }}
             select
             value={buyInCurrency}
-            onChange={e => setBuyInCurrency(e.target.value)}
-
+            onChange={handleBuyCurrency}
           >
             {currencies.map((option) => (
               <MenuItem key={option.name} value={option.name}>
