@@ -3,7 +3,7 @@
 }
 
 .selector {
-  width: 80px;
+  width: 100px;
 }
 
 .innerText {
@@ -26,11 +26,6 @@
   margin-left: 1rem;
   flex: 1;
   text-align: center;
-}
-
-.divider {
-  height: 20;
-  margin: 0 1rem;
 }
 
 .paymentMethod {
@@ -63,11 +58,4 @@
 .iconAndName {
   display: flex;
   align-items: center;
-}
-
-.errorMsg, .successMsg{
-  margin: 0.5rem 0;
-  position: absolute;
-  top: 0;
-  width: 285px;
 }

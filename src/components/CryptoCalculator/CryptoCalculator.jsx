@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
   },
   divider: {
     height: 20,
-    margin: '0 1rem',
+    margin: '0 0.5rem',
   },
 }));
 
@@ -85,10 +85,11 @@ const CryptoCalculator = () => {
 
   // API fetch and stored in 'items'
   const [items, setItems] = useState()
-  const API = 'https://api.coingate.com/v2/rates';
+
+  const currencyAPI = 'https://api.coingate.com/v2/rates';
 
   useEffect(() => {
-    fetch(API)
+    fetch(currencyAPI)
       .then(res => res.json())
       .then(data => setItems(data))
       .catch(err => console.log(err.message))
@@ -122,13 +123,11 @@ const CryptoCalculator = () => {
   const handlePayCurrency = e => {
     setPayInCurrency(e.target.value)
     setBuyValue(calculateByPay())
-    
   }
 
   const handleBuyCurrency = e => {
     setBuyInCurrency(e.target.value)
     setPayValue(calculateByBuy())
-    
   }
 
   const handlePay = e => {
@@ -205,7 +204,13 @@ const CryptoCalculator = () => {
           >
             {currencies.map((option) => (
               <MenuItem key={option.name} value={option.name}>
-                {option.name}
+                <div className={styles.iconAndName}>
+                  {/* Icons don't appear if the website providint API is down */}
+                  <img src={paypal} alt="" />
+                  <div>
+                    {option.name}
+                  </div>
+                </div>
               </MenuItem>
             ))}
           </TextField>
@@ -236,7 +241,14 @@ const CryptoCalculator = () => {
           >
             {currencies.map((option) => (
               <MenuItem key={option.name} value={option.name}>
-                {option.name}
+                <div className={styles.iconAndName}>
+
+                  {/* Icons don't appear if the website providint API is down */}
+                  <img src={`https://cryptoicons.org/api/icon/${option.name.toLowerCase()}/12`} alt="" />
+                  <div>
+                    {option.name}
+                  </div>
+                </div>
               </MenuItem>
             ))}
           </TextField>
