@@ -199,6 +199,7 @@ const CryptoCalculator = () => {
             select
             value={payInCurrency}
             onChange={handlePayCurrency}
+            disabled={!fetchedData ? true : false}
           >
             {currencies.map((option) => (
               <MenuItem key={option.name} value={option.name}>
@@ -229,6 +230,7 @@ const CryptoCalculator = () => {
             select
             value={buyInCurrency}
             onChange={handleBuyCurrency}
+            disabled={!fetchedData ? true : false}
           >
             {currencies.map((option) => (
               <MenuItem key={option.name} value={option.name}>
