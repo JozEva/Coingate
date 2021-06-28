@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Styles
 import styles from './styles.module.css';
@@ -41,10 +41,10 @@ const useStyles = makeStyles(() => ({
 const CryptoCalculator = () => {
 
   // Input values to pay and buy
-  const [payValue, setPayValue] = useState(0);
-  const [buyValue, setBuyValue] = useState(0);
+  const [payValue, setPayValue] = useState();
+  const [buyValue, setBuyValue] = useState();
 
-  // Select currency to pay with and buy what
+  // Select currency to pay with and buy what with default ones set on load
   const [payInCurrency, setPayInCurrency] = useState('EUR');
   const [buyInCurrency, setBuyInCurrency] = useState('BTC');
 
@@ -83,28 +83,16 @@ const CryptoCalculator = () => {
     }
   }
 
-
+  // API fetch and stored in 'items'
   const [items, setItems] = useState()
   const API = 'https://api.coingate.com/v2/rates';
-  // useEffect(() => {
-  //   fetch(API)
-  //     .then(res => res.json())
-  //     .then(data => setItems(data))
-  //     .catch(err => console.log(err.message))
-  // }, [])
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await fetch(API);
-        const body = await result.json();
-        setItems(body);
-      } catch (err) {
-        console.log(err.message);
-      }
-    }
-    fetchData()
-  }, [])
+    fetch(API)
+      .then(res => res.json())
+      .then(data => setItems(data))
+      .catch(err => console.log(err.message))
+  }, []);
 
   const fetchedData = items;
   const currencyList = fetchedData ? Object.entries(fetchedData.trader.buy) : []
@@ -117,6 +105,7 @@ const CryptoCalculator = () => {
     )
   };
 
+  // Helper functions
   const calculateByPay = () => {
     let cryptoPrice = payValue / fetchedData.trader.buy[buyInCurrency][payInCurrency];
     console.log('Calculate by pay: ', cryptoPrice)
@@ -129,6 +118,7 @@ const CryptoCalculator = () => {
     return cryptoPrice
   }
 
+  // Handlers
   const handlePayCurrency = e => {
     setPayInCurrency(e.target.value)
     setBuyValue(calculateByPay())
@@ -148,7 +138,6 @@ const CryptoCalculator = () => {
     setBuyValue(e.target.value)
     setPayValue(calculateByBuy())
   }
-
 
   // Payment methods array
   const paymentMethods = [
@@ -199,6 +188,7 @@ const CryptoCalculator = () => {
             onChange={handlePay}
             value={payValue}
             defaultValue={payValue}
+            disabled={!fetchedData ? true : false}
           >
             {payValue}
           </InputBase>
@@ -228,6 +218,7 @@ const CryptoCalculator = () => {
             onChange={handleBuy}
             value={buyValue}
             defaultValue={buyValue}
+            disabled={!fetchedData ? true : false}
           >
             {buyValue}
           </InputBase>
