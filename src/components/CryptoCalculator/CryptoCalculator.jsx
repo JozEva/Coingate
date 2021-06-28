@@ -122,11 +122,13 @@ const CryptoCalculator = () => {
   const handlePayCurrency = e => {
     setPayInCurrency(e.target.value)
     setBuyValue(calculateByPay())
+    
   }
 
   const handleBuyCurrency = e => {
     setBuyInCurrency(e.target.value)
     setPayValue(calculateByBuy())
+    
   }
 
   const handlePay = e => {
