@@ -206,7 +206,7 @@ const CryptoCalculator = () => {
               <MenuItem key={option.name} value={option.name}>
                 <div className={styles.iconAndName}>
                   {/* Icons don't appear if the website providint API is down */}
-                  <img src={paypal} alt="" />
+                  <img src={`https://cryptoicons.org/api/icon/${option.name.toLowerCase()}/25`} alt="" />
                   <div>
                     {option.name}
                   </div>
@@ -244,7 +244,7 @@ const CryptoCalculator = () => {
                 <div className={styles.iconAndName}>
 
                   {/* Icons don't appear if the website providint API is down */}
-                  <img src={`https://cryptoicons.org/api/icon/${option.name.toLowerCase()}/12`} alt="" />
+                  <img src={`https://cryptoicons.org/api/icon/${option.name.toLowerCase()}/25`} alt="" />
                   <div>
                     {option.name}
                   </div>
