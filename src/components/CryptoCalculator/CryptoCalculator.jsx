@@ -204,7 +204,8 @@ const CryptoCalculator = () => {
           >
             {currencies.map((option) => (
               <MenuItem key={option.name} value={option.name}>
-                <div className={styles.iconAndName}>
+                <div className={styles.iconAndFiatCurrency}>
+                  
                   {/* Icons don't appear if the website providint API is down */}
                   <img src={`https://cryptoicons.org/api/icon/${option.name.toLowerCase()}/25`} alt="" />
                   <div>
@@ -241,7 +242,7 @@ const CryptoCalculator = () => {
           >
             {currencies.map((option) => (
               <MenuItem key={option.name} value={option.name}>
-                <div className={styles.iconAndName}>
+                <div className={styles.iconAndFiatCurrency}>
 
                   {/* Icons don't appear if the website providint API is down */}
                   <img src={`https://cryptoicons.org/api/icon/${option.name.toLowerCase()}/25`} alt="" />
@@ -270,7 +271,7 @@ const CryptoCalculator = () => {
           >
             {paymentMethods.map((option) => (
               <MenuItem key={option.name} value={option.name}>
-                <div className={styles.iconAndName}>
+                <div className={styles.iconAndMethod}>
                   <img src={option.icon} alt="" />
                   <div>
                     {option.name}

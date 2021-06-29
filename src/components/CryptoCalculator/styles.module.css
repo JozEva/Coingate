@@ -55,7 +55,16 @@
   box-shadow: 1px 1px 6px 1px #16dfb5;
 }
 
-.iconAndName {
+.iconAndMethod {
   display: flex;
   align-items: center;
+}
+
+.iconAndFiatCurrency {
+  display: flex;
+  align-items: center;
+}
+
+.iconAndFiatCurrency img {
+  margin-right: 0.2rem;
 }
