@@ -207,7 +207,7 @@ const CryptoCalculator = () => {
                 <div className={styles.iconAndFiatCurrency}>
                   
                   {/* Icons don't appear if the website providint API is down */}
-                  <img src={`https://cryptoicons.org/api/icon/${option.name.toLowerCase()}/25`} alt="" />
+                  <img src={`https://cryptoicon-api.vercel.app/api/icon/${option.name.toLowerCase()}`} alt="" />
                   <div>
                     {option.name}
                   </div>
@@ -245,7 +245,7 @@ const CryptoCalculator = () => {
                 <div className={styles.iconAndFiatCurrency}>
 
                   {/* Icons don't appear if the website providint API is down */}
-                  <img src={`https://cryptoicons.org/api/icon/${option.name.toLowerCase()}/25`} alt="" />
+                  <img src={`https://cryptoicon-api.vercel.app/api/icon/${option.name.toLowerCase()}`} alt="" />
                   <div>
                     {option.name}
                   </div>
