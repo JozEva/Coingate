@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 // Styles
 import styles from './styles.module.css';
@@ -51,7 +51,7 @@ const CryptoCalculator = () => {
   // Payment method
   const [payment, setPayment] = useState('Bank transfer');
 
-  // Success/Error  messages
+  // Success/Error messages
   const [errorMessage, setErrorMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
 
@@ -84,27 +84,25 @@ const CryptoCalculator = () => {
   }
 
   // API fetch and stored in 'items'
-  const [items, setItems] = useState()
+  const [fetchedData, setFetchedData] = useState()
 
   const currencyAPI = 'https://api.coingate.com/v2/rates';
 
   useEffect(() => {
     fetch(currencyAPI)
       .then(res => res.json())
-      .then(data => setItems(data))
+      .then(data => setFetchedData(data))
       .catch(err => console.log(err.message))
   }, []);
 
-  const fetchedData = items;
-  const currencyList = fetchedData ? Object.entries(fetchedData.trader.buy) : []
-  const currencies = []
-  for (let i = 0; i < currencyList.length; i++) {
-    currencies.push(
-      {
-        name: currencyList[i][0],
-      }
-    )
-  };
+  const currencies = useMemo(() => {
+    if (!fetchedData) return []
+
+    return Object.entries(fetchedData.trader.buy)
+      .map(currency => {
+        return { name: currency[0] }
+      })
+  }, [fetchedData]);
 
   // Helper functions
   const calculateByPay = () => {
@@ -120,6 +118,7 @@ const CryptoCalculator = () => {
   }
 
   // Handlers
+  // Currency selector handlers
   const handlePayCurrency = e => {
     setPayInCurrency(e.target.value)
     setBuyValue(calculateByPay())
@@ -129,7 +128,9 @@ const CryptoCalculator = () => {
     setBuyInCurrency(e.target.value)
     setPayValue(calculateByBuy())
   }
+  // --------------------------------
 
+  // Currency input handlers
   const handlePay = e => {
     setPayValue(e.target.value)
     setBuyValue(calculateByPay())
@@ -139,6 +140,7 @@ const CryptoCalculator = () => {
     setBuyValue(e.target.value)
     setPayValue(calculateByBuy())
   }
+  // --------------------------------
 
   // Payment methods array
   const paymentMethods = [
@@ -205,7 +207,7 @@ const CryptoCalculator = () => {
             {currencies.map((option) => (
               <MenuItem key={option.name} value={option.name}>
                 <div className={styles.iconAndFiatCurrency}>
-                  
+
                   {/* Icons don't appear if the website providint API is down */}
                   <img src={`https://cryptoicon-api.vercel.app/api/icon/${option.name.toLowerCase()}`} alt="" />
                   <div>
